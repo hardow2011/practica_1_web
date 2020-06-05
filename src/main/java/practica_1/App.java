@@ -10,22 +10,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
-
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Collector;
-import org.jsoup.select.Evaluator;
 
 public class App {
     public String getGreeting() {
@@ -82,8 +74,6 @@ public class App {
         }
 
         myObj.close();
-
-        // https://www.w3schools.com/java/java_user_input.asp
         
     }
 }
