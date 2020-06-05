@@ -46,7 +46,6 @@ public class App {
             System.out.println("La URL es válida.");
 
             // Contar la cantidad de líneas.
-            request.addHeader("User-Agent", "Apache HTTPClient");
             HttpEntity entity = response.getEntity();
             String content = EntityUtils.toString(entity);
             System.out.println("\nCantidad de líneas del recurso: "+content.lines().count());
