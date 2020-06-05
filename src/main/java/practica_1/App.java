@@ -13,6 +13,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.HttpEntity;
+import org.apache.http.util.EntityUtils;
 
 public class App {
     public String getGreeting() {
@@ -24,6 +26,7 @@ public class App {
 
         HttpClient client;
         HttpGet request;
+        HttpResponse response;
 
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Digite la URL: ");
@@ -32,15 +35,22 @@ public class App {
         
         client = HttpClientBuilder.create().build();
 		request = new HttpGet(myUrl);
-        HttpResponse response;
         try {
             response = client.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
             // System.out.println(statusCode);
             System.out.println("La URL es válida.");
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            String responseBody = client.execute(request, responseHandler);
-            System.out.println(responseBody);
+            // ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            // String responseBody = client.execute(request, responseHandler);
+
+            request.addHeader("User-Agent", "Apache HTTPClient");
+
+            HttpEntity entity = response.getEntity();
+            String content = EntityUtils.toString(entity);
+            System.out.println("Cantidad de líneas del recurso: ");
+            System.out.println(content.lines().count());
+            // .split("\r\n|\r|\n").length
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             System.out.println("La URL no es válida.");
@@ -48,7 +58,7 @@ public class App {
 
         myObj.close();
 
-        // https://www.w3scjhghsools.com/java/java_user_input.asp
+        // https://www.w3schools.com/java/java_user_input.asp
         
     }
 }
