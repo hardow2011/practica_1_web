@@ -60,11 +60,20 @@ public class App {
             System.out.println("\nCantidad de líneas del recurso: "+content.lines().count());
             // System.out.println();
             
-
+            // Contar la cantidad de p, img y form
             Document document = Jsoup.connect(myUrl).get();
-            System.out.println("Cantidad de tags p = " + document.getElementsByTag("p").size());
+            System.out.println("\nCantidad de tags p = " + document.getElementsByTag("p").size());
             System.out.println("Cantidad de tags img = "+ document.getElementsByTag("img").size());
             System.out.println("Cantidad de tags form = " + document.getElementsByTag("form").size());
+
+            System.out.println("\nCampos tipo input:");
+            ArrayList<Element> links = document.select("input");
+
+            for (Element input : links) { 		      
+                System.out.println(input); 		
+           }
+
+            System.out.println(links.get(0).outerHtml());
             
 
         } catch (IOException e) {
