@@ -3,12 +3,33 @@
  */
 package practica_1;
 
+import java.io.IOException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+
 public class App {
     public String getGreeting() {
         return "Hello world.";
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public static void main(String[] args){
+        // System.out.println(new App().getGreeting());
+        
+        HttpClient client = HttpClientBuilder.create().build();
+		HttpGet request = new HttpGet("https://www.baeldung.com/java-check-url-exists");
+        HttpResponse response;
+        try {
+            response = client.execute(request);
+            int statusCode = response.getStatusLine().getStatusCode();
+            System.out.println(statusCode);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
 }
