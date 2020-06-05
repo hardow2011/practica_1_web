@@ -16,6 +16,17 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Collector;
+import org.jsoup.select.Evaluator;
+
 public class App {
     public String getGreeting() {
         return "Hello world.";
@@ -36,20 +47,25 @@ public class App {
         client = HttpClientBuilder.create().build();
 		request = new HttpGet(myUrl);
         try {
+            // Si la petición es exitosa, la página existe.
             response = client.execute(request);
-            int statusCode = response.getStatusLine().getStatusCode();
+            // int statusCode = response.getStatusLine().getStatusCode();
             // System.out.println(statusCode);
             System.out.println("La URL es válida.");
-            // ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            // String responseBody = client.execute(request, responseHandler);
 
+            // Contar la cantidad de líneas.
             request.addHeader("User-Agent", "Apache HTTPClient");
-
             HttpEntity entity = response.getEntity();
             String content = EntityUtils.toString(entity);
-            System.out.println("Cantidad de líneas del recurso: ");
-            System.out.println(content.lines().count());
-            // .split("\r\n|\r|\n").length
+            System.out.println("\nCantidad de líneas del recurso: "+content.lines().count());
+            // System.out.println();
+            
+
+            Document document = Jsoup.connect(myUrl).get();
+            System.out.println("Cantidad de tags p = " + document.getElementsByTag("p").size());
+            System.out.println("Cantidad de tags img = "+ document.getElementsByTag("img").size());
+            System.out.println("Cantidad de tags form = " + document.getElementsByTag("form").size());
+            
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
