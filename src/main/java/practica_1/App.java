@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.impl.client.BasicResponseHandler;
 
 public class App {
     public String getGreeting() {
@@ -20,26 +22,33 @@ public class App {
     public static void main(String[] args){
         // System.out.println(new App().getGreeting());
 
+        HttpClient client;
+        HttpGet request;
+
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Digite la URL: ");
 
         String myUrl = myObj.nextLine();  // Read user input
         
-        HttpClient client = HttpClientBuilder.create().build();
-		HttpGet request = new HttpGet(myUrl);
+        client = HttpClientBuilder.create().build();
+		request = new HttpGet(myUrl);
         HttpResponse response;
         try {
             response = client.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
             // System.out.println(statusCode);
             System.out.println("La URL es válida.");
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            String responseBody = client.execute(request, responseHandler);
+            System.out.println(responseBody);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             System.out.println("La URL no es válida.");
         }
 
         myObj.close();
-        // https://www.w3scools.com/java/java_user_input.asp
+
+        // https://www.w3scjhghsools.com/java/java_user_input.asp
         
     }
 }
