@@ -4,6 +4,7 @@
 package practica_1;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -18,18 +19,27 @@ public class App {
 
     public static void main(String[] args){
         // System.out.println(new App().getGreeting());
+
+        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("Digite la URL: ");
+
+        String myUrl = myObj.nextLine();  // Read user input
         
         HttpClient client = HttpClientBuilder.create().build();
-		HttpGet request = new HttpGet("https://www.baeldung.com/java-check-url-exists");
+		HttpGet request = new HttpGet(myUrl);
         HttpResponse response;
         try {
             response = client.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
-            System.out.println(statusCode);
+            // System.out.println(statusCode);
+            System.out.println("La URL es válida.");
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("La URL no es válida.");
         }
+
+        myObj.close();
+        // https://www.w3scools.com/java/java_user_input.asp
         
     }
 }
