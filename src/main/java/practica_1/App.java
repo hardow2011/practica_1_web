@@ -58,14 +58,12 @@ public class App {
             System.out.println("Cantidad de tags img = "+ document.getElementsByTag("img").size());
             System.out.println("Cantidad de tags form = " + document.getElementsByTag("form").size());
 
+            // Campos input
             System.out.println("\nCampos tipo input:");
             ArrayList<Element> links = document.select("input");
-
             for (Element input : links) { 		      
                 System.out.println(input); 		
            }
-
-            System.out.println(links.get(0).outerHtml());
             
 
         } catch (IOException e) {
