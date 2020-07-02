@@ -61,7 +61,7 @@ public class App {
             for(Element parrafo : parrafos){
                 cantidadImagenesEnParrafos += parrafo.getElementsByTag("img").size();
             }
-            System.out.println("Cantidad de tags img dentro de parrafos= " + cantidadImagenesEnParrafos);
+            System.out.println("Cantidad de tags img dentro de lod párrafos = " + cantidadImagenesEnParrafos);
 
             // Número de forms Get con y Post
             Elements formularioGet = document.select("form[method=GET]");
@@ -81,14 +81,12 @@ public class App {
 
             System.out.println("\nRespuestas peticiones a los forms POST");
             Document postRequest;
-            for (Element form: document.getElementsByTag("form")) {
-                if (form.attr("method").equalsIgnoreCase("POST"))
-                {
-                    String urlPeticion = form.absUrl("action");
-                    // System.out.println("Abs url: "+urlPeticion);
-                    postRequest= Jsoup.connect(urlPeticion).data("asignatura", "practica1").header("matricula", "20170639").post();
-                    System.out.println("Respuesta de la petición al form POST "+form.attr("name")+": "+postRequest.body().toString());
-                }
+            for (Element form: document.select("form[method=POST]")) {
+                String urlPeticion = form.absUrl("action");
+                // System.out.println("Abs url: "+urlPeticion);
+                postRequest= Jsoup.connect(urlPeticion).data("asignatura", "practica1").header("matricula", "20170639").post();
+                System.out.println("Respuesta de la petición al form POST "+form.attr("name")+": "+postRequest.body().toString());
+                System.out.println("\n\n");
             } 
 
         } catch (IOException e) {
