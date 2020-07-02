@@ -85,8 +85,9 @@ public class App {
                 if (form.attr("method").equalsIgnoreCase("POST"))
                 {
                     String urlPeticion = form.absUrl("action");
-                    System.out.println("Abs url: "+urlPeticion);
+                    // System.out.println("Abs url: "+urlPeticion);
                     postRequest= Jsoup.connect(urlPeticion).data("asignatura", "practica1").header("matricula", "20170639").post();
+                    System.out.println("Respuesta de la petición al form POST "+form.attr("name")+": "+postRequest.body().toString());
                 }
             } 
 
